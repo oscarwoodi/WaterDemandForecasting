@@ -7,7 +7,7 @@ def mape(predictions, actuals):
 
 def rmse(predictions, actuals):
     """Root mean squared error"""
-    return ((predictions - actuals)**2.mean())**0.5
+    return (((predictions - actuals)**2).mean())**0.5
 
 def mae(predictions, actuals):
     """Mean absolute error"""
