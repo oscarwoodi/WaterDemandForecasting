@@ -20,13 +20,44 @@ def r(actuals, predictions):
     
     return 1 - ssreg / sstot
 
+def nse(actual, prediction): 
+    """ NSE error """
+    mean_observed = np.mean(actual)
+    numerator = np.sum((actual - prediction) ** 2)
+    denominator = np.sum((actual - mean_observed) ** 2)
+    nse = 1 - (numerator / denominator)
+    
+    return nse
+    
 #Evaluate all
-def scores(test,pred):
-    score_rmse = rmse(test,pred)
-    score_mape = mape(test,pred)
-    score_mae = mae(test,pred)
-    #score_nse = nse(test,pred)
-    df = pd.DataFrame({'indicator':['RMSE','MAPE','MAE'],
-          'value':[score_rmse,score_mape,score_mae]})
-    df.set_index('indicator',inplace=True)
-    return (df)
+def scores(test, prediction):
+    """
+    for dma in test.columns: 
+        score_rmse = rmse(test,pred)
+        score_mape = mape(test,pred)
+        score_mae = mae(test,pred)
+        #score_nse = nse(test,pred)
+        df = pd.DataFrame({'indicator':['RMSE','MAPE','MAE'],
+              'value':[score_rmse,score_mape,score_mae]})
+        df.set_index('indicator',inplace=True)
+     """
+    # pre-allocate
+    dmas = test.columns
+    scores = {}
+    
+    # get scores
+    mape_result = {dma: mape(test[dma], prediction[dma]) for dma in dmas}
+    mape_result['total'] = sum(mape_result.values())
+    rmse_result = {dma: rmse(test[dma], prediction[dma]) for dma in dmas}
+    rmse_result['total'] = sum(rmse_result.values())
+    mae_result = {dma: mae(test[dma], prediction[dma]) for dma in dmas}
+    mae_result['total'] = sum(mae_result.values())
+    nse_result = {dma: nse(test[dma], prediction[dma]) for dma in dmas}
+    nse_result['total'] = sum(nse_result.values())
+
+    scores['mape'] = mape_result
+    scores['rmse'] = rmse_result
+    scores['mae'] = mae_result
+    scores['nse'] = nse_result
+    
+    return scores
