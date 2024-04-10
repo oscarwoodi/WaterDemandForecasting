@@ -136,4 +136,4 @@ if __name__ == "__main__":
     params = arima_model.find_best_parameters()
     fit_models = arima_model.train_model(params)
     predictions = arima_model.predict(models=fit_models)
-    arima_model.save(filepath="../../results/ARIMA1_4W.csv")
+    arima_model.save(filepath="../../results/ARIMA1_1_4W.csv")
