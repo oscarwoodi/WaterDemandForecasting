@@ -176,6 +176,6 @@ class ARIMAXModel:
 # Example usage:
 if __name__ == "__main__":
     arima_model = ARIMAXModel()
-    arima_model.import_data(train_window=4*7, test_window=4*7, filepath_demand="../../data/InflowDataImputed.csv", filepath_weather="../../data/WeatherDataImputed.csv", filepath_diurnal="../../data/DiurnalDataImputed.csv")
+    arima_model.import_data(train_window=1*7, test_window=4*7, filepath_demand="../../data/InflowDataImputed.csv", filepath_weather="../../data/WeatherDataImputed.csv", filepath_diurnal="../../data/DiurnalDataImputed.csv")
     arima_model.roll_predict(4*7, 7)
-    arima_model.save(filepath="../../results/SARIMA1_4W_+168H.csv")
+    arima_model.save(filepath="../../results/SARIMA1_1W_+168H.csv")
